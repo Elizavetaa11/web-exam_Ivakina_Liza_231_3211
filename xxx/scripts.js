@@ -3,7 +3,7 @@ const apiKey = '23d05351-a6d2-48ec-8e3b-fcd6081fd307';
 let productsData = [];
 let currentPage = 1;
 let totalPages = 1;
-
+let sortOrder = 'rating_asc'; // По умолчанию сортировка по возрастанию рейтинга
 let categories = new Set();
 
 // Объект для перевода категорий
@@ -96,7 +96,61 @@ async function loadMoreProducts() {
     updateCategories(products);
 }
 
+// Функция для применения фильтров к продуктам
+function applyFilters() {
+    const form = document.getElementById('filter-form');
+    const formData = new FormData(form);
+    const filters = {};
 
+    formData.forEach((value, key) => {
+        if (key === 'category' || key === 'discount') {
+            if (!filters[key]) {
+                filters[key] = [];
+            }
+            filters[key].push(value);
+        } else {
+            filters[key] = value;
+        }
+    });
+
+    const filteredProducts = productsData.filter(product => {
+        let matches = true;
+
+        // Фильтрация по категории
+        if (filters['category'] && !filters['category'].includes(product.main_category)) {
+            matches = false;
+        }
+
+        // Фильтрация по цене
+        const price = product.discount_price ? product.discount_price : product.actual_price;
+        if (filters['min-price'] && price < parseFloat(filters['min-price'])) {
+            matches = false;
+        }
+
+        if (filters['max-price'] && price > parseFloat(filters['max-price'])) {
+            matches = false;
+        }
+
+        // Фильтрация по наличию скидки
+        if (filters['discount'] && !product.discount_price) {
+            matches = false;
+        }
+
+        return matches;
+    });
+
+    const productsContainer = document.getElementById('products');
+    productsContainer.innerHTML = '';
+    displayProducts(filteredProducts);
+}
+
+// Функция для сортировки продуктов
+function sortProducts() {
+    const sortSelect = document.getElementById('sort-select');
+    sortOrder = sortSelect.value.replace('-', '_'); // Преобразуем значение для API
+    currentPage = 1; // Сброс текущей страницы при изменении сортировки
+    loadProducts();
+}
 
 // Функция для загрузки продуктов и отображения их на странице
 async function loadProducts() {

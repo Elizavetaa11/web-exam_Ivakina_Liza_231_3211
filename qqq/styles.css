@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 header {
@@ -94,6 +95,7 @@ header .icons img {
 .container {
     display: flex;
     margin-top: 80px; /* Отступ сверху для хедера */
+    margin-bottom: 20px; /* Отступ снизу для футера */
 }
 
 .sidebar {
@@ -250,10 +252,10 @@ header .icons img {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px;
-    position: fixed;
+    padding: 10px 0;
     width: 100%;
     bottom: 0;
+    /* position: fixed; */
 }
 
 #load-more-button {

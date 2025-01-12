@@ -50,7 +50,8 @@ header .search-bar button:active {
 }
 
 header .icons a {
-    margin-left: 10px;
+    margin-left: 5px;
+    margin-right: 40px;
     color: white;
     text-decoration: none;
 }

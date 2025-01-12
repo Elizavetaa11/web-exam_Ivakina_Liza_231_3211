@@ -24,7 +24,7 @@
                 <!-- Товары  -->
             </div>
         </div>
-        <h2>Оформление заказа</h2>
+        <h2 class="order-text">Оформление заказа</h2>
         <div class="order-form-container">
             <!-- <h2>Оформление заказа</h2> -->
             <form id="order-form">
@@ -38,12 +38,16 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
 
-                    <label>
-                        <input type="checkbox" id="subscribe" name="subscribe" value="1"> Подписаться на рассылку
-                    </label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="subscribe" name="subscribe">
+                        <label for="subscribe">Подписаться на рассылку</label>
+                    </div>
+                    
 
-                    <label for="comment">Комментарий:</label>
-                    <textarea id="comment" name="comment"></textarea>
+                    <div id="comment-container">
+                        <label for="comment">Комментарий:</label>
+                        <textarea id="comment" name="comment"></textarea>
+                    </div>
                 </div>
                 <div class="form-column">
                     <label for="delivery_address">Адрес доставки:</label>

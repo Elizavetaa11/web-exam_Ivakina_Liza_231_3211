@@ -6,7 +6,7 @@ body {
 header {
     background-color: #333;
     color: white;
-    padding: 10px 20px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +19,8 @@ header .logo {
     font-size: 24px;
 }
 header .icons a {
-    margin-left: 10px;
+    margin-left: 5px;
+    margin-right: 50px;
     color: white;
     text-decoration: none;
 }
@@ -105,7 +106,7 @@ header .icons a {
 .order-form-container {
     margin: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .order-form-container form {
     display: grid;
@@ -117,6 +118,7 @@ header .icons a {
 .form-column label {
     margin-top: 10px;
 }
+
 .form-column input,
 .form-column select,
 .form-column textarea {
@@ -138,6 +140,37 @@ header .icons a {
     cursor: pointer;
     width: 48%;
     border-radius: 15px; /* Закругление краев */
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание */
+    margin-bottom: 5px; 
+}
+
+.checkbox-container input {
+    margin-right: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 15px; 
+    height: 15px; 
+    cursor: pointer; /* Изменение курсора при наведении */
+}
+
+.checkbox-container label {
+    margin-top: 3px; /* Отступ сверху для текста, чтобы он был на уровне кнопки */
+}
+
+.order-text {
+    margin: 0 40px;
+}
+h1 {
+    margin: 60px 40px 0 0;
+    padding: 0 20px;
+}
+#comment-container {
+    margin-top: 5px;
 }
 footer {
     background-color: #333;

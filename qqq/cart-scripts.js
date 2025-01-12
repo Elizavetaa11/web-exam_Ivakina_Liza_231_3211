@@ -70,3 +70,58 @@ function closeNotification() {
     const notifications = document.getElementById('notifications');
     notifications.style.display = 'none';
 }
+
+// Функция для инициализации корзины
+function init() {
+    cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    displayCartItems(cartItems);
+}
+
+// Обработчик отправки формы заказа
+document.getElementById('order-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    if (!validateOrder()) {
+        return;
+    }
+
+    const formData = new FormData(event.target);
+    const orderData = {
+        full_name: formData.get('full_name'),
+        email: formData.get('email'),
+        subscribe: formData.get('subscribe') ? 1 : 0,
+        phone: formData.get('phone'),
+        delivery_address: formData.get('delivery_address'),
+        delivery_date: formData.get('delivery_date'),
+        delivery_interval: formData.get('delivery_interval'),
+        comment: formData.get('comment'),
+        good_ids: cartItems.map(item => item.id)
+    };
+
+    try {
+        const response = await fetch(`${apiUrl}?api_key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Network response was not ok: ${errorData.message || 'Unknown error'}`);
+        }
+
+        const data = await response.json();
+        console.log('Order created:', data);
+        showNotification('Заказ успешно оформлен!', () => {
+            localStorage.removeItem('cartItems'); // Удаляем товары из корзины
+            document.getElementById('order-form').reset(); // Сбрасываем форму
+            displayCartItems([]); // Обновляем корзину
+        });
+    } catch (error) {
+        console.error('Error creating order:', error);
+        showNotification(`Ошибка при оформлении заказа: ${error.message}`);
+    }
+});
+
+init();

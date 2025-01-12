@@ -52,3 +52,52 @@ header .icons a {
     font-size: 18px;
     cursor: pointer;
 }
+
+.cart-container {
+    margin: 20px;
+}
+.cart-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* три контейнера в строке */
+    gap: 20px;
+    margin: 0 20px;
+}
+.cart-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.cart-item img {
+    width: 100%; 
+    height: 200px; /* Фиксированная высота для всех изображений */
+    object-fit: contain; /* Вмещать изображение в контейнер без обрезки */
+    margin-bottom: 10px;
+}
+.cart-item .name {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.cart-item .rating {
+    margin-bottom: 10px;
+}
+.cart-item .price .old-price {
+    color: red;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+.cart-item .price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.cart-item .remove-button {
+    margin-top: auto;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 15px; /* Закругление краев */
+}

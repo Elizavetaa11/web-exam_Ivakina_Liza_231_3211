@@ -177,7 +177,23 @@ function updateCategories(products) {
 
 
 
+// Функция для отображения уведомления
+function showNotification(message) {
+    const notifications = document.getElementById('notifications');
+    notifications.innerHTML = `
+        <div class="notification">
+            ${message}
+            <button class="close-button" onclick="closeNotification()">×</button>
+        </div>
+    `;
+    notifications.style.display = 'block';
+}
 
+// Функция для закрытия уведомления
+function closeNotification() {
+    const notifications = document.getElementById('notifications');
+    notifications.style.display = 'none';
+}
 // Функция для инициализации приложения
 async function init() {
     const initialProducts = await fetchProducts(currentPage, 10, sortOrder);

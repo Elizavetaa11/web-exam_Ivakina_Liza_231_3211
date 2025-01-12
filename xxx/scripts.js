@@ -1,3 +1,5 @@
+let categories = new Set();
+
 // Объект для перевода категорий
 const categoryTranslations = {
     'home & kitchen': 'Дом и кухня',

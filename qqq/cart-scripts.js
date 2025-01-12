@@ -33,6 +33,21 @@ function displayCartItems(items) {
     updateTotalAmount(items);
 }
 
+// Функция для удаления товара из корзины
+function removeFromCart(itemId) {
+    cartItems = cartItems.filter(item => item.id !== itemId);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    displayCartItems(cartItems);
+}
+
+// Функция для обновления общей суммы заказа
+function updateTotalAmount(items) {
+    const totalAmount = items.reduce((total, item) => {
+        return total + (item.discount_price ? item.discount_price : item.actual_price);
+    }, 0);
+    document.getElementById('total-amount').value = `${totalAmount.toFixed(2)} руб.`;
+}
+
 // Функция для валидации данных заказа
 function validateOrder() {
     const full_name = document.getElementById('full_name').value;

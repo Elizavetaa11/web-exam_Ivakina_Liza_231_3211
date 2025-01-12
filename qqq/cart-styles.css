@@ -101,3 +101,50 @@ header .icons a {
     width: 100%;
     border-radius: 15px; /* Закругление краев */
 }
+
+.order-form-container {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.order-form-container form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* два контейнера в строке */
+    gap: 20px;
+    margin: 0 20px;
+}
+
+.form-column label {
+    margin-top: 10px;
+}
+.form-column input,
+.form-column select,
+.form-column textarea {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.form-buttons button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 48%;
+    border-radius: 15px; /* Закругление краев */
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

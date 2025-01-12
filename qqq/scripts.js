@@ -175,7 +175,16 @@ function updateCategories(products) {
     displayCategories([...categories]);
 }
 
-
+// Функция для добавления товара в корзину
+function addToCart(productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (product) {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push(product);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        showNotification(`Товар "${product.name}" добавлен в корзину.`);
+    }
+}
 
 // Функция для отображения уведомления
 function showNotification(message) {

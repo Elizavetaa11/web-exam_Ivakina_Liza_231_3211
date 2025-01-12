@@ -58,3 +58,114 @@ header .icons img {
     width: 20px;
     height: 20px;
 }
+
+
+
+
+.container {
+    display: flex;
+    margin-top: 80px; /* Отступ сверху для хедера */
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .filter-group {
+    margin-bottom: 20px;
+}
+
+.sidebar .filter-group label {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sidebar .filter-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.sidebar .price-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sidebar .price-filters label {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .price-filters input[type="number"] {
+    width: 80px;
+    margin-left: 10px;
+}
+
+.sidebar button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px; /* Закругление краев */
+}
+
+.catalog {
+    margin: 20px;
+    flex-grow: 1;
+}
+
+.catalog .sort-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px; /* отступ от краев страницы */
+}
+
+.catalog .sort-container select {
+    margin-left: 10px;
+    width: 200px; /* ширина выпадающего меню */
+    padding: 5px; 
+}
+
+
+
+#load-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #aa9b9b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px; /* Закругление краев */
+    font-size: 16px; /* Размер шрифта */
+    text-align: center;
+    width: 200px; /* Ширина кнопки */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для кнопки */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавный переход */
+}
+
+#load-more-button:hover {
+    background-color: #998a8a; /* Цвет при наведении */
+    transform: translateY(-2px); /* Поднятие кнопки при наведении */
+}
+
+#load-more-button:active {
+    background-color: #887979; /* Цвет при нажатии */
+    transform: translateY(0); /* Возвращение кнопки на место при нажатии */
+}

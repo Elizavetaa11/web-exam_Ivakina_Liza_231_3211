@@ -1,6 +1,9 @@
 const apiUrl = 'https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods';
 const apiKey = '23d05351-a6d2-48ec-8e3b-fcd6081fd307';
+let productsData = [];
+let currentPage = 1;
 let totalPages = 1;
+
 let categories = new Set();
 
 // Объект для перевода категорий
@@ -79,6 +82,37 @@ function displayCategories(categories) {
     });
 }
 
+// Функция для загрузки дополнительных продуктов
+async function loadMoreProducts() {
+    if (currentPage >= totalPages) {
+        console.log('No more products to load');
+        document.getElementById('load-more-button').style.display = 'none';
+        return;
+    }
+    currentPage++;
+    const products = await fetchProducts(currentPage, 10, sortOrder);
+    productsData = productsData.concat(products);
+    displayProducts(products);
+    updateCategories(products);
+}
+
+
+
+// Функция для загрузки продуктов и отображения их на странице
+async function loadProducts() {
+    productsData = [];
+    const productsContainer = document.getElementById('products');
+    productsContainer.innerHTML = '';
+    const initialProducts = await fetchProducts(currentPage, 10, sortOrder);
+    if (Array.isArray(initialProducts)) {
+        productsData = initialProducts;
+        displayProducts(productsData);
+        updateCategories(productsData);
+    } else {
+        console.error('Initial products data is not an array:', initialProducts);
+    }
+}
+
 // Функция для обновления списка категорий
 function updateCategories(products) {
     products.forEach(product => {
@@ -86,3 +120,20 @@ function updateCategories(products) {
     });
     displayCategories([...categories]);
 }
+
+
+
+
+// Функция для инициализации приложения
+async function init() {
+    const initialProducts = await fetchProducts(currentPage, 10, sortOrder);
+    if (Array.isArray(initialProducts)) {
+        productsData = initialProducts;
+        displayProducts(productsData);
+        updateCategories(productsData);
+    } else {
+        console.error('Initial products data is not an array:', initialProducts);
+    }
+}
+
+init();

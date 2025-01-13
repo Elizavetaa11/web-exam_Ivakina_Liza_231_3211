@@ -171,6 +171,7 @@ document.getElementById('order-form').addEventListener('submit', async function(
             localStorage.removeItem('cartItems'); // Удаляем товары из корзины
             document.getElementById('order-form').reset(); // Сбрасываем форму
             displayCartItems([]); // Обновляем корзину
+            window.location.href = '../index.html'; // Переход на страницу каталога
         });
     } catch (error) {
         console.error('Error creating order:', error);

@@ -67,9 +67,32 @@ function getProductPrice(productId) {
     return product ? (product.discount_price ? product.discount_price : product.actual_price) : 0;
 }
 
+// Функция для расчета общей суммы заказа
+function calculateTotalAmount(goodIds) {
+    return goodIds.reduce((total, goodId) => {
+        return total + getProductPrice(goodId);
+    }, 0);
+}
 
+// Функция для форматирования даты и времени
+function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+}
 
-
+// Функция для форматирования даты
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+}
 
 // Функция для отображения заказов в таблице
 function displayOrders(orders) {
@@ -168,6 +191,7 @@ function viewOrder(orderId) {
 
     document.getElementById('viewModal').style.display = 'flex';
 }
+
 // Функция для редактирования заказа в модальном окне
 function editOrder(orderId) {
     const order = orders.find(o => o.id === orderId);
@@ -209,7 +233,6 @@ function editOrder(orderId) {
 
     document.getElementById('editModal').style.display = 'flex';
 }
-
 
 // Функция для удаления заказа
 function deleteOrder(orderId) {
@@ -272,3 +295,64 @@ document.getElementById('editOrderForm').addEventListener('submit', async functi
     }
     closeModal('editModal');
 });
+
+// Функция для отображения уведомления
+function showNotification(message, type = 'info') {
+    const notifications = document.getElementById('notifications');
+    notifications.className = `notifications ${type}`;
+    notifications.innerHTML = `
+        <div class="notification">
+            ${message}
+            <button class="close-button" onclick="closeNotification()">×</button>
+        </div>
+    `;
+    notifications.style.display = 'block';
+    setTimeout(() => {
+        closeNotification();
+    }, 3000);
+}
+
+// Функция для закрытия уведомления
+function closeNotification() {
+    const notifications = document.getElementById('notifications');
+    notifications.style.display = 'none';
+}
+
+// Функция для закрытия модального окна
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Обработчики для закрытия модальных окон
+document.querySelectorAll('.close, .modal button').forEach(button => {
+    button.onclick = function() {
+        closeModal(button.closest('.modal').id);
+    };
+});
+
+// Функция для инициализации приложения
+async function init() {
+    try {
+        // Параллельная загрузка продуктов и заказов
+        const [fetchedProducts, fetchedOrders] = await Promise.all([fetchProducts(), fetchOrders()]);
+        products = fetchedProducts;
+        orders = fetchedOrders;
+        console.log('Loaded products:', products); // Логирование загруженных продуктов
+        console.log('Loaded orders:', orders); // Логирование загруженных заказов
+
+        // Проверка, что все продукты из заказов присутствуют в массиве products
+        orders.forEach(order => {
+            order.good_ids.forEach(goodId => {
+                if (!products.find(p => p.id === goodId)) {
+                    console.error(`Product with ID ${goodId} not found in products array`);
+                }
+            });
+        });
+
+        displayOrders(orders); // Отображаем заказы
+    } catch (error) {
+        console.error('Error initializing app:', error);
+    }
+}
+
+init();

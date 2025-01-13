@@ -70,6 +70,7 @@ function getProductPrice(productId) {
 
 
 
+
 // Функция для отображения заказов в таблице
 function displayOrders(orders) {
     const ordersList = document.getElementById('orders-list');
@@ -99,3 +100,175 @@ function displayOrders(orders) {
         ordersList.appendChild(row);
     });
 }
+
+// Функция для отображения деталей заказа в модальном окне
+function viewOrder(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+
+    const goodIds = order.good_ids || [];
+    const viewModalContent = document.getElementById('viewModalContent');
+    const formattedDateTime = formatDateTime(order.created_at);
+    const deliveryDate = formatDate(order.delivery_date);
+    const totalAmount = calculateTotalAmount(goodIds);
+
+    viewModalContent.innerHTML = `
+        <div class="order-details-row">
+            <label>Дата оформления</label>
+            <div>${formattedDateTime}</div>
+        </div>
+        <hr>
+        <div class="user-info">
+            <div class="order-details-row">
+                <label>Имя получателя</label>
+                <div>${order.full_name}</div>
+            </div>
+            <div class="order-details-row">
+                <label>Адрес доставки</label>
+                <div>${order.delivery_address}</div>
+            </div>
+            <div class="order-details-row">
+                <label>Дата доставки</label>
+                <div>${deliveryDate}</div>
+            </div>
+            <div class="order-details-row">
+                <label>Время доставки</label>
+                <div>${order.delivery_interval}</div>
+            </div>
+            <div class="order-details-row">
+                <label>Телефон</label>
+                <div>${order.phone}</div>
+            </div>
+            <div class="order-details-row">
+                <label>Email</label>
+                <div>${order.email}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="order-details-row">
+            <label>Комментарии</label>
+            <div>${order.comment || 'Нет комментариев'}</div>
+        </div>
+        <hr>
+        <div class="order-composition">
+            <h3>Состав заказа:</h3>
+            ${goodIds.map(goodId => `
+                <div class="order-composition-item">
+                    ${getProductName(goodId)}
+                </div>
+            `).join('')}
+        </div>
+        <hr>
+        <div class="total-amount">
+            <label>Стоимость</label>
+            <div>${totalAmount} руб.</div>
+        </div>
+
+    `;
+
+    document.getElementById('viewModal').style.display = 'flex';
+}
+// Функция для редактирования заказа в модальном окне
+function editOrder(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+
+    const goodIds = order.good_ids || [];
+    const editOrderForm = document.getElementById('editOrderForm');
+    const formattedDateTime = formatDateTime(order.created_at);
+    const totalAmount = calculateTotalAmount(goodIds);
+
+    editOrderForm.dataset.orderId = orderId;
+    document.getElementById('editName').value = order.full_name;
+    document.getElementById('editAddress').value = order.delivery_address;
+    document.getElementById('delivery_date').value = order.delivery_date;
+    document.getElementById('editDeliveryInterval').value = order.delivery_interval;
+    document.getElementById('editPhone').value = order.phone;
+    document.getElementById('editEmail').value = order.email;
+    document.getElementById('editComments').value = order.comment || '';
+
+    const editOrderComposition = document.getElementById('editOrderComposition');
+    editOrderComposition.innerHTML = `
+        <div class="order-details-row">
+            <label>Дата оформления</label>
+            <div>${formattedDateTime}</div>
+        </div>
+        <hr>
+        <h3>Состав заказа:</h3>
+        ${goodIds.map(goodId => `
+            <div class="order-composition-item">
+                ${getProductName(goodId)}
+            </div>
+        `).join('')}
+        <hr>
+        <div class="total-amount">
+            <label>Стоимость</label>
+            <div>${totalAmount} руб.</div>
+        </div>
+    `;
+
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+
+// Функция для удаления заказа
+function deleteOrder(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (!order) return;
+
+    document.getElementById('deleteModal').style.display = 'flex';
+    document.getElementById('deleteModalConfirm').onclick = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/orders/${orderId}?api_key=${apiKey}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            orders = orders.filter(o => o.id !== orderId);
+            displayOrders(orders);
+            showNotification('Заказ успешно удален!', 'success');
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            showNotification('Ошибка при удалении заказа', 'error');
+        }
+        closeModal('deleteModal');
+    };
+}
+
+// Функция для сохранения изменений заказа
+document.getElementById('editOrderForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const orderId = event.target.dataset.orderId;
+    const formData = new FormData(event.target);
+    const orderData = {
+        full_name: formData.get('full_name'),
+        delivery_address: formData.get('delivery_address'),
+        delivery_date: formData.get('delivery_date'),
+        delivery_interval: formData.get('delivery_interval'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        comment: formData.get('comment')
+    };
+
+    try {
+        const response = await fetch(`${apiUrl}/orders/${orderId}?api_key=${apiKey}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const updatedOrder = await response.json();
+        orders = orders.map(o => o.id === orderId ? updatedOrder : o);
+        displayOrders(orders);
+        showNotification('Заказ успешно обновлен!', 'success');
+    } catch (error) {
+        console.error('Error updating order:', error);
+        showNotification('Ошибка при обновлении заказа', 'error');
+    }
+    closeModal('editModal');
+});

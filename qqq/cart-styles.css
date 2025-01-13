@@ -2,7 +2,7 @@ body, html {
     font-family: Arial, sans-serif;
     margin: 3% 0;
     padding: 0;
-    height: 100%;
+    height: 80%;
 }
 header {
     background-color: #333;
@@ -108,7 +108,7 @@ header .icons a {
     margin: 20px;
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 60px; /* Отступ снизу для футера */
+    margin-bottom: 5%; /* Отступ снизу для футера */
 }
 .order-form-container form {
     display: grid;
@@ -169,7 +169,7 @@ header .icons a {
     text-align: center;
 }
 h1 {
-    margin: 60px 40px 0 0;
+    margin: 60px 40px 20px 0;
     padding: 0 20px;
 }
 #comment-container {

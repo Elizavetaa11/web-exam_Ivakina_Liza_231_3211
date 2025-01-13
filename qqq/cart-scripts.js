@@ -40,13 +40,52 @@ function removeFromCart(itemId) {
     displayCartItems(cartItems);
 }
 
-// Функция для обновления общей суммы заказа
+// Функция для расчета стоимости доставки
+function calculateDeliveryCost(deliveryDate, deliveryInterval) {
+    const baseDeliveryCost = 200;
+    const eveningSurcharge = 200;
+    const weekendSurcharge = 100;
+
+    const date = new Date(deliveryDate.split('.').reverse().join('-')); // Переводим дату в формат YYYY-MM-DD
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isEvening = deliveryInterval.includes('18:00-22:00');
+
+    let deliveryCost = baseDeliveryCost;
+
+    if (isEvening) {
+        deliveryCost += eveningSurcharge;
+    }
+
+    if (isWeekend) {
+        deliveryCost += weekendSurcharge;
+    }
+
+    return deliveryCost;
+}
+
+// Функция для обновления общей суммы заказа и стоимости доставки
 function updateTotalAmount(items) {
+    const deliveryDate = document.getElementById('delivery_date').value;
+    const deliveryInterval = document.getElementById('delivery_interval').value;
+    const deliveryCost = calculateDeliveryCost(deliveryDate, deliveryInterval);
+
     const totalAmount = items.reduce((total, item) => {
         return total + (item.discount_price ? item.discount_price : item.actual_price);
-    }, 0);
+    }, 0) + deliveryCost;
+
     document.getElementById('total-amount').value = `${totalAmount.toFixed(2)} руб.`;
+    document.getElementById('delivery-cost-label').textContent = ` ${deliveryCost.toFixed(2)} руб.`;
 }
+
+// Обработчики событий для динамического обновления стоимости доставки
+document.getElementById('delivery_date').addEventListener('input', function() {
+    updateTotalAmount(cartItems);
+});
+
+document.getElementById('delivery_interval').addEventListener('change', function() {
+    updateTotalAmount(cartItems);
+});
 
 // Функция для валидации данных заказа
 function validateOrder() {

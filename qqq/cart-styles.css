@@ -58,7 +58,9 @@ header .icons a {
 }
 
 .cart-container {
-    margin: 20px;
+    margin: 60px 20px 20px 20px; /* Увеличьте верхний отступ, чтобы избежать перекрытия хедером */
+    padding-top: 20px; /* Добавьте внутренний отступ сверху */
+    position: relative; /* Убедитесь, что контейнер позиционируется относительно */
 }
 .cart-items {
     display: grid;
@@ -171,9 +173,13 @@ header .icons a {
     text-align: center;
 }
 h1 {
-    margin: 60px 40px 20px 0;
-    padding: 0 20px;
-    margin-top: 6%;
+    margin: 0; /* Уберите отступы */
+    padding: 20px 0;
+    top: 0px; /* Позиционируем ниже хедера */
+    left: 50%;
+   
+    text-align: center;
+    box-sizing: border-box;
 }
 #comment-container {
     margin-top: 5px;

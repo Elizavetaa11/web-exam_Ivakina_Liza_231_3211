@@ -321,6 +321,12 @@ header .icons img {
         width: 250px; /* Ширина поисковой строки на устройствах до 768px */
     }
 
+    header .icons a {
+        display: block; /* Иконки в столбик */
+        margin: 5px 0;
+        margin-right: 0;
+    }
+
     .container {
         flex-direction: column; /* Столбцы в строку */
     }
@@ -371,6 +377,7 @@ header .icons img {
     header .icons a {
         display: block; /* Иконки в столбик */
         margin: 5px 0;
+        margin-right: 0;
     }
 
     .footer {

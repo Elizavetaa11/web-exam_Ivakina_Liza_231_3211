@@ -296,15 +296,29 @@ header .icons img {
     transform: translateY(0); /* Возвращение кнопки на место при нажатии */
 }
 
-/* Для мобильных устройств */
-@media (max-width: 600px) {
+/* Для устройств с шириной экрана до 992px */
+@media (max-width: 992px) {
     header .search-bar input {
-        width: 100%; /* Ширина поисковой строки на мобильных устройствах */
+        width: 300px; /* Ширина поисковой строки на устройствах до 992px */
     }
 
-    header .icons a {
-        display: block; /* Иконки в столбик */
-        margin: 5px 0;
+    .sidebar {
+        width: 25%; /* Ширина сайдбара на устройствах до 992px */
+    }
+
+    .catalog {
+        margin: 15px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* Два контейнера в строке */
+    }
+}
+
+/* Для устройств с шириной экрана до 768px */
+@media (max-width: 768px) {
+    header .search-bar input {
+        width: 250px; /* Ширина поисковой строки на устройствах до 768px */
     }
 
     .container {
@@ -312,7 +326,7 @@ header .icons img {
     }
 
     .sidebar {
-        width: 100%; /* Ширина сайдбара на мобильных устройствах */
+        width: 100%; /* Ширина сайдбара на устройствах до 768px */
         padding: 10px;
     }
 
@@ -322,10 +336,6 @@ header .icons img {
 
     .products {
         grid-template-columns: 1fr; /* Один контейнер в строке */
-    }
-
-    .footer {
-        padding: 20px 0;
     }
 
     .sidebar .price-filters {
@@ -352,14 +362,19 @@ header .icons img {
     }
 }
 
-
-/* Для планшетов */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* Для устройств с шириной экрана до 480px */
+@media (max-width: 480px) {
     header .search-bar input {
-        width: 300px; /* Ширина поисковой строки на планшетах */
+        width: 100%; /* Ширина поисковой строки на устройствах до 480px */
     }
 
-    .products {
-        grid-template-columns: repeat(2, 1fr); /* Два контейнера в строке */
+    header .icons a {
+        display: block; /* Иконки в столбик */
+        margin: 5px 0;
+    }
+
+    .footer {
+        padding: 20px 0;
     }
 }
+

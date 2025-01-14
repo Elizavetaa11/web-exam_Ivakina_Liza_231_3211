@@ -25,12 +25,15 @@ header .logo {
 header .search-bar {
     display: flex;
     align-items: center;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
 }
 
 header .search-bar input {
     padding: 10px;
     margin-right: 5px;
     width: 400px; /* Ширина поисковой строки */
+    flex: 1; /* Занимает доступное пространство */
+
 }
 
 header .search-bar button {
@@ -40,6 +43,7 @@ header .search-bar button {
     border: none;
     cursor: pointer;
     border-radius: 15px; /* Закругление краев */
+    flex-shrink: 0; /* Не сжимается */
 }
 
 header .search-bar button:hover {
@@ -130,21 +134,24 @@ header .icons img {
 
 .sidebar .price-filters {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    gap: 10px; /* Расстояние между элементами */
     margin-bottom: 20px;
 }
 
 .sidebar .price-filters label {
     display: flex;
     align-items: center;
+    flex: 1; /* Занимает доступное пространство */
 }
 
 .sidebar .price-filters input[type="number"] {
-    width: 80px;
+    width: 100%; /* Ширина поля ввода */
     margin-left: 10px;
 }
 
 .sidebar button {
+    width: 100%; /* Ширина кнопки */
     margin-top: 20px;
     padding: 10px;
     background-color: #2c4464;
@@ -153,6 +160,7 @@ header .icons img {
     cursor: pointer;
     border-radius: 15px; /* Закругление краев */
 }
+
 
 .catalog {
     margin: 20px;
@@ -282,4 +290,72 @@ header .icons img {
 #load-more-button:active {
     background-color: #887979; /* Цвет при нажатии */
     transform: translateY(0); /* Возвращение кнопки на место при нажатии */
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    header .search-bar input {
+        width: 100%; /* Ширина поисковой строки на мобильных устройствах */
+    }
+
+    header .icons a {
+        display: block; /* Иконки в столбик */
+        margin: 5px 0;
+    }
+
+    .container {
+        flex-direction: column; /* Столбцы в строку */
+    }
+
+    .sidebar {
+        width: 100%; /* Ширина сайдбара на мобильных устройствах */
+        padding: 10px;
+    }
+
+    .catalog {
+        margin: 10px;
+    }
+
+    .products {
+        grid-template-columns: 1fr; /* Один контейнер в строке */
+    }
+
+    .footer {
+        padding: 20px 0;
+    }
+
+    .sidebar .price-filters {
+        flex-direction: column; /* Столбцы в строку */
+        align-items: flex-start; /* Выравнивание по левому краю */
+    }
+
+    .sidebar .price-filters label {
+        width: 100%; /* Ширина поля ввода */
+        display: flex;
+        align-items: center; /* Выравнивание по центру */
+        justify-content: flex-start; /* Выравнивание по левому краю */
+        margin-bottom: 10px; /* Расстояние между полями */
+    }
+
+    .sidebar .price-filters input[type="number"] {
+        width: 60px; /* Ширина поля ввода */
+        margin-left: 5px; /* Расстояние от текста до поля ввода */
+    }
+
+    .sidebar button {
+        width: 50%; /* Ширина кнопки */
+        align-self: flex-start; /* Выравнивание кнопки по левому краю */
+    }
+}
+
+
+/* Для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    header .search-bar input {
+        width: 300px; /* Ширина поисковой строки на планшетах */
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* Два контейнера в строке */
+    }
 }

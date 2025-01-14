@@ -3,6 +3,7 @@ body, html {
     margin: 3% 0;
     padding: 0;
     height: 80%;
+    overflow-x: hidden; /* убрать горизонтальную прокрутку */
 }
 header {
     background-color: #2c4464;
@@ -15,6 +16,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 1001; /* хедер находится над уведомлениями */
+    box-sizing: border-box; /* Включает padding и border в общую ширину */
 }
 header .logo {
     font-size: 24px;
@@ -184,3 +186,64 @@ h1 {
     bottom: 0;
     /* position: fixed; */
 }
+/* Для устройств с шириной экрана до 992px */
+@media (max-width: 992px) {
+    .cart-items {
+        grid-template-columns: repeat(2, 1fr); /* два контейнера в строке */
+    }
+
+    .order-form-container form {
+        grid-template-columns: 1fr; /* один контейнер в строке */
+    }
+}
+
+/* Для устройств с шириной экрана до 768px */
+@media (max-width: 768px) {
+    header .icons a {
+        display: block; /* Иконки в столбик */
+        margin: 5px 0;
+        margin-right: 0;
+    }
+
+    .cart-items {
+        grid-template-columns: 1fr; /* один контейнер в строке */
+    }
+
+    .order-form-container form {
+        grid-template-columns: 1fr; /* один контейнер в строке */
+    }
+
+    .form-buttons button {
+        width: 100%; /* кнопки занимают всю ширину */
+    }
+}
+
+/* Для устройств с шириной экрана до 480px */
+@media (max-width: 480px) {
+    header .search-bar input {
+        width: 100%; /* Ширина поисковой строки на устройствах до 480px */
+    }
+
+    header .icons a {
+        display: block; /* Иконки в столбик */
+        margin: 5px 0;
+        margin-right: 0;
+    }
+
+    .cart-container {
+        margin: 10px;
+    }
+
+    .order-text {
+        margin: 0 20px;
+    }
+
+    h1 {
+        margin: 40px 20px 10px 20px;
+    }
+
+    .footer {
+        padding: 20px 0;
+    }
+}
+

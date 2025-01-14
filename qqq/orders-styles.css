@@ -221,3 +221,132 @@ header .icons a {
     bottom: 0;
     position: fixed;
 }
+/* Стили для модального окна просмотра заказа */
+#viewModal .modal-content {
+    width: 35%; /*  ширина модального окна */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#viewModal .order-details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center; /* центр */
+}
+
+#viewModal .order-details-row label {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px; /*  отступ */
+    font-weight: bold; /* Жирный шрифт для меток */
+}
+
+#viewModal .order-details-row div {
+    flex: 2;
+    text-align: left;
+    font-weight: normal; /* Нормальный шрифт для значений */
+}
+
+#viewModal .order-composition {
+    margin-top: 20px;
+}
+
+#viewModal .order-composition-item {
+    width: 100%; /* всю ширину */
+    margin-bottom: 5px; 
+    text-align: left;
+}
+
+#viewModal button {
+    margin-top: 20px;
+    width: 100%; /* Ширина кнопки на всю ширину модального окна */
+}
+
+/* Стили для линий разделения */
+#viewModal hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* информация о пользователе по правому краю */
+#viewModal .user-info {
+    text-align: right;
+}
+
+#viewModal .user-info div {
+    margin-bottom: 5px;
+}
+
+/* Стили для общей стоимости */
+#viewModal .total-amount {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Стили для модального окна редактирования заказа */
+#editModal .modal-content {
+    width: 35%; 
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#editModal .order-details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center; /* Выравнивание по центру */
+}
+
+#editModal .order-details-row label {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px; 
+    font-weight: bold; /* Жирный шрифт для меток */
+}
+
+#editModal .order-details-row div {
+    flex: 2;
+    text-align: left;
+    font-weight: normal; /* Нормальный шрифт для значений */
+}
+
+#editModal .order-composition {
+    margin-top: 20px;
+}
+
+#editModal .order-composition-item {
+    width: 100%; /* Занимает всю ширину */
+    margin-bottom: 5px; 
+    text-align: left;
+}
+
+#editModal button {
+    margin-top: 20px;
+    width: 100%; /* Ширина кнопки на всю ширину модального окна */
+}
+
+/* Стили для линий разделения */
+#editModal hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* Выравнивание информации о пользователе по правому краю */
+#editModal .user-info {
+    text-align: right;
+}
+
+#editModal .user-info div {
+    margin-bottom: 5px;
+}
+
+/* Стили для общей стоимости */
+#editModal .total-amount {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 20px;
+}

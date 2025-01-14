@@ -101,6 +101,8 @@ header .icons img {
     display: flex;
     margin-top: 80px; /* Отступ сверху для хедера */
     margin-bottom: 20px; /* Отступ снизу для футера */
+    width: 100%; 
+    box-sizing: border-box; /* Включает padding и border в общую ширину */
 }
 
 .sidebar {
@@ -166,6 +168,7 @@ header .icons img {
 .catalog {
     margin: 20px;
     flex-grow: 1;
+    box-sizing: border-box;
 }
 
 .catalog .sort-container {

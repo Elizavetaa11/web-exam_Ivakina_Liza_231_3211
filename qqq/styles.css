@@ -297,7 +297,7 @@ header .icons img {
 }
 
 /* Для мобильных устройств */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     header .search-bar input {
         width: 100%; /* Ширина поисковой строки на мобильных устройствах */
     }

@@ -17,6 +17,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 1001;  /* хедер находится над уведомлениями */
+    box-sizing: border-box; /* Включает padding и border в общую ширину */
 }
 
 header .logo {
@@ -34,6 +35,7 @@ header .search-bar input {
     margin-right: 5px;
     width: 400px; /* Ширина поисковой строки */
     flex: 1; /* Занимает доступное пространство */
+    max-width: 400px; /* Максимальная ширина поисковой строки */
 
 }
 
@@ -103,6 +105,7 @@ header .icons img {
     margin-bottom: 20px; /* Отступ снизу для футера */
     width: 100%; 
     box-sizing: border-box; /* Включает padding и border в общую ширину */
+    padding: 0 10px; /* Добавляем отступы по бокам для контейнера */
 }
 
 .sidebar {
@@ -384,4 +387,3 @@ header .icons img {
         padding: 20px 0;
     }
 }
-
